@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "f5c4c613-ac56-4807-b28c-e1d72e174405",
+		"name": "BookCart API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13540982"
+	},
+	"item": [
+		{
+			"name": "List all books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"List of books contains results\", function () {\r",
+							"    pm.expect(jsonData).to.be.an(\"array\");\r",
+							"    pm.expect(jsonData).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains objects with expected schema\", function () {\r",
+							"    jsonData.forEach(function(item, index) {\r",
+							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"bookId\");\r",
+							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"title\");\r",
+							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"author\");\r",
+							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"category\");\r",
+							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"price\");\r",
+							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"coverFileName\");\r",
+							"    })\r",
+							"});\r",
+							"\r",
+							"pm.test(\"First object from response has expected values\", function () {\r",
+							"    pm.expect(jsonData[0][\"bookId\"]).to.eql(2);\r",
+							"    pm.expect(jsonData[0][\"title\"]).to.eql(\"HP2\");\r",
+							"    pm.expect(jsonData[0][\"author\"]).to.eql(\"JKR\");\r",
+							"    pm.expect(jsonData[0][\"category\"]).to.eql(\"Mystery\");\r",
+							"    pm.expect(jsonData[0][\"price\"]).to.eql(235.00);\r",
+							"    pm.expect(jsonData[0][\"coverFileName\"]).to.eql(\"9d8f4978-0ef8-42d0-873a-4eb583439237HP2.jpg\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{book_cart_base}}/Book",
+					"host": [
+						"{{book_cart_base}}"
+					],
+					"path": [
+						"Book"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
