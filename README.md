@@ -20,6 +20,7 @@ Decided to use [environment variables](https://learning.postman.com/docs/sending
 
 # APIs used
 
+## REST
 - [BookCart API](https://bookcart.azurewebsites.net/swagger/index.html)
 
 # Tools
@@ -27,6 +28,12 @@ Decided to use [environment variables](https://learning.postman.com/docs/sending
 ## Postman
 
 
-
 ## Newman
+
+# Readings
+
+- [REST API - IBM](https://www.ibm.com/topics/rest-apis)
+- [REST API - RedHat](https://www.redhat.com/en/topics/api/what-is-a-rest-api)
+- [SOAP vs REST - RedHat](https://www.redhat.com/en/topics/integration/whats-the-difference-between-soap-rest)
+- [SOAP vs REST - SoapUI](https://www.soapui.org/learn/api/soap-vs-rest-api/)
 
