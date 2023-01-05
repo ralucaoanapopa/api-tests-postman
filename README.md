@@ -7,7 +7,7 @@
 
 3. Download and install [node.js](https://nodejs.org/en/download/current/)
 
-4. Install newman from cmd:
+4. Install [newman](https://www.npmjs.com/package/newman) from cmd:
 
 ```
 npm install -g newman
@@ -28,7 +28,13 @@ Decided to use [environment variables](https://learning.postman.com/docs/sending
 ## Postman
 
 
-## Newman
+## [Newman](https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/)
+
+### Run tests from a collection
+
+```
+newman run <collection_name.json> -e <environment_file.json>
+```
 
 # Readings
 
