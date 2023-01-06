@@ -1,0 +1,884 @@
+{
+	"info": {
+		"_postman_id": "ad14a968-5e37-43cc-9743-3f5117b5f938",
+		"name": "PublicSOAPAPIs",
+		"description": "This is a collection of different SOAP APIs that are completley public and do not require any authentication, making it easier for consumers to play with and understand what APIs are all about by seeing the many different ways in which APIs can be used.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13540982"
+	},
+	"item": [
+		{
+			"name": "Numbers",
+			"item": [
+				{
+					"name": "Number to Words",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// parse XML into JSON\r",
+									"var jsonObject = xml2Json(responseBody);\r",
+									"\r",
+									"pm.test(\"Transformation has expected result\", function () {\r",
+									"    pm.expect(jsonObject).to.be.an(\"object\");\r",
+									"\r",
+									"    resultNode = jsonObject['soap:Envelope']['soap:Body']['m:NumberToWordsResponse']['m:NumberToWordsResult'];\r",
+									"\r",
+									"    pm.expect(resultNode).to.eql(\"five hundred\")\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/xml; charset=utf-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <NumberToWords xmlns=\"http://www.dataaccess.com/webservicesserver/\">\n      <ubiNum>500</ubiNum>\n    </NumberToWords>\n  </soap:Body>\n</soap:Envelope>"
+						},
+						"url": {
+							"raw": "https://www.dataaccess.com/webservicesserver/NumberConversion.wso",
+							"protocol": "https",
+							"host": [
+								"www",
+								"dataaccess",
+								"com"
+							],
+							"path": [
+								"webservicesserver",
+								"NumberConversion.wso"
+							]
+						},
+						"description": "Returns the word corresponding to the positive number passed as parameter. Limited to quadrillions."
+					},
+					"response": []
+				},
+				{
+					"name": "Number to Dollars",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// parse XML into JSON\r",
+									"var jsonObject = xml2Json(responseBody);\r",
+									"\r",
+									"pm.test(\"Transformation has expected result\", function () {\r",
+									"    pm.expect(jsonObject).to.be.an(\"object\");\r",
+									"\r",
+									"    resultNode = jsonObject['soap:Envelope']['soap:Body']['m:NumberToDollarsResponse']['m:NumberToDollarsResult'];\r",
+									"\r",
+									"    pm.expect(resultNode).to.eql(\"five hundred dollars\")\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "text/xml; charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <NumberToDollars xmlns=\"http://www.dataaccess.com/webservicesserver/\">\n      <dNum>500</dNum>\n    </NumberToDollars>\n  </soap:Body>\n</soap:Envelope>"
+						},
+						"url": {
+							"raw": "https://www.dataaccess.com/webservicesserver/NumberConversion.wso",
+							"protocol": "https",
+							"host": [
+								"www",
+								"dataaccess",
+								"com"
+							],
+							"path": [
+								"webservicesserver",
+								"NumberConversion.wso"
+							]
+						},
+						"description": "Returns the non-zero dollar amount of the passed number."
+					},
+					"response": []
+				}
+			],
+			"description": "Some basic numbers requests."
+		},
+		{
+			"name": "Calculator",
+			"item": [
+				{
+					"name": "Divide",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// parse XML into JSON\r",
+									"var jsonObject = xml2Json(responseBody);\r",
+									"\r",
+									"pm.test(\"Transformation has expected result\", function () {\r",
+									"    pm.expect(jsonObject).to.be.an(\"object\");\r",
+									"\r",
+									"    resultNode = jsonObject['soap:Envelope']['soap:Body']['DivideResponse']['DivideResult'];\r",
+									"\r",
+									"    pm.expect(resultNode).to.eql('1')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/xml; charset=utf-8",
+								"type": "text"
+							},
+							{
+								"key": "SOAPAction",
+								"value": "http://tempuri.org/Divide",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <Divide xmlns=\"http://tempuri.org/\">\n      <intA>5</intA>\n      <intB>5</intB>\n    </Divide>\n  </soap:Body>\n</soap:Envelope>"
+						},
+						"url": {
+							"raw": "http://www.dneonline.com/calculator.asmx",
+							"protocol": "http",
+							"host": [
+								"www",
+								"dneonline",
+								"com"
+							],
+							"path": [
+								"calculator.asmx"
+							]
+						},
+						"description": "Divides two integers."
+					},
+					"response": []
+				},
+				{
+					"name": "Multiply",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// parse XML into JSON\r",
+									"var jsonObject = xml2Json(responseBody);\r",
+									"\r",
+									"pm.test(\"Transformation has expected result\", function () {\r",
+									"    pm.expect(jsonObject).to.be.an(\"object\");\r",
+									"\r",
+									"    resultNode = jsonObject['soap:Envelope']['soap:Body']['MultiplyResponse']['MultiplyResult'];\r",
+									"\r",
+									"    pm.expect(resultNode).to.eql('25')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/xml; charset=utf-8",
+								"type": "text"
+							},
+							{
+								"key": "SOAPAction",
+								"value": "http://tempuri.org/Multiply",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <Multiply xmlns=\"http://tempuri.org/\">\n      <intA>5</intA>\n      <intB>5</intB>\n    </Multiply>\n  </soap:Body>\n</soap:Envelope>"
+						},
+						"url": {
+							"raw": "http://www.dneonline.com/calculator.asmx",
+							"protocol": "http",
+							"host": [
+								"www",
+								"dneonline",
+								"com"
+							],
+							"path": [
+								"calculator.asmx"
+							]
+						},
+						"description": "Multiplies two integers."
+					},
+					"response": []
+				},
+				{
+					"name": "Subtract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// parse XML into JSON\r",
+									"var jsonObject = xml2Json(responseBody);\r",
+									"\r",
+									"pm.test(\"Transformation has expected result\", function () {\r",
+									"    pm.expect(jsonObject).to.be.an(\"object\");\r",
+									"\r",
+									"    resultNode = jsonObject['soap:Envelope']['soap:Body']['SubtractResponse']['SubtractResult'];\r",
+									"\r",
+									"    pm.expect(resultNode).to.eql('0')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/xml; charset=utf-8",
+								"type": "text"
+							},
+							{
+								"key": "SOAPAction",
+								"value": "http://tempuri.org/Subtract",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <Subtract xmlns=\"http://tempuri.org/\">\n      <intA>5</intA>\n      <intB>5</intB>\n    </Subtract>\n  </soap:Body>\n</soap:Envelope>"
+						},
+						"url": {
+							"raw": "http://www.dneonline.com/calculator.asmx",
+							"protocol": "http",
+							"host": [
+								"www",
+								"dneonline",
+								"com"
+							],
+							"path": [
+								"calculator.asmx"
+							]
+						},
+						"description": "Subtracts two integers."
+					},
+					"response": []
+				}
+			],
+			"description": "A simple SOAP API calculator.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Continents",
+			"item": [
+				{
+					"name": "List of Continents by Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// parse XML into JSON\r",
+									"var jsonObject = xml2Json(responseBody);\r",
+									"resultNode = jsonObject['soap:Envelope']['soap:Body']['m:ListOfContinentsByNameResponse']['m:ListOfContinentsByNameResult']['m:tContinent'];\r",
+									"\r",
+									"pm.test(\"Response has 6 continents in nodes\", function () {\r",
+									"    pm.expect(jsonObject).to.be.an(\"object\");\r",
+									"\r",
+									"    pm.expect(resultNode.length).to.eql(6);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Africa is the first continent from the response list\", function () {\r",
+									"    pm.expect(resultNode[0]['m:sCode']).to.eql('AF');\r",
+									"    pm.expect(resultNode[0]['m:sName']).to.eql('Africa');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Antarctica is the second continent from the response list\", function () {\r",
+									"    pm.expect(resultNode[1]['m:sCode']).to.eql('AN');\r",
+									"    pm.expect(resultNode[1]['m:sName']).to.eql('Antarctica');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Asia is the third continent from the response list\", function () {\r",
+									"    pm.expect(resultNode[2]['m:sCode']).to.eql('AS');\r",
+									"    pm.expect(resultNode[2]['m:sName']).to.eql('Asia');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Europe is the fourth continent from the response list\", function () {\r",
+									"    pm.expect(resultNode[3]['m:sCode']).to.eql('EU');\r",
+									"    pm.expect(resultNode[3]['m:sName']).to.eql('Europe');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Ocenania is the fifth continent from the response list\", function () {\r",
+									"    pm.expect(resultNode[4]['m:sCode']).to.eql('OC');\r",
+									"    pm.expect(resultNode[4]['m:sName']).to.eql('Ocenania');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The Americas is the sixth continent from the response list\", function () {\r",
+									"    pm.expect(resultNode[5]['m:sCode']).to.eql('AM');\r",
+									"    pm.expect(resultNode[5]['m:sName']).to.eql('The Americas');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/xml; charset=utf-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n  <soap12:Body>\n    <ListOfContinentsByName xmlns=\"http://www.oorsprong.org/websamples.countryinfo\">\n    </ListOfContinentsByName>\n  </soap12:Body>\n</soap12:Envelope>"
+						},
+						"url": {
+							"raw": "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso",
+							"protocol": "http",
+							"host": [
+								"webservices",
+								"oorsprong",
+								"org"
+							],
+							"path": [
+								"websamples.countryinfo",
+								"CountryInfoService.wso"
+							]
+						},
+						"description": "Returns a list of continents ordered by name."
+					},
+					"response": []
+				}
+			],
+			"description": "Some weather APIs for the United States.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Countries",
+			"item": [
+				{
+					"name": "List of Countries by Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// parse XML into JSON\r",
+									"var jsonObject = xml2Json(responseBody);\r",
+									"resultNode = jsonObject['soap:Envelope']['soap:Body']['m:ListOfCountryNamesByNameResponse']['m:ListOfCountryNamesByNameResult']['m:tCountryCodeAndName'];\r",
+									"\r",
+									"pm.test(\"Response has 246 countries in nodes\", function () {\r",
+									"    pm.expect(jsonObject).to.be.an(\"object\");\r",
+									"\r",
+									"    pm.expect(resultNode.length).to.eql(246);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Set iso_codes as env variables\", function () {\r",
+									"\r",
+									"resultNode.forEach(function(item, index) {\r",
+									"    isoCode = resultNode[index]['m:sISOCode'];\r",
+									"    pm.environment.set(\"iso_code\"+index, isoCode);\r",
+									"    });\r",
+									"\r",
+									"    pm.expect(pm.environment.get(\"iso_code14\")).to.eql('AT');\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "text/xml; charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n  <soap12:Body>\n    <ListOfCountryNamesByName xmlns=\"http://www.oorsprong.org/websamples.countryinfo\">\n    </ListOfCountryNamesByName>\n  </soap12:Body>\n</soap12:Envelope>"
+						},
+						"url": {
+							"raw": "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso",
+							"protocol": "http",
+							"host": [
+								"webservices",
+								"oorsprong",
+								"org"
+							],
+							"path": [
+								"websamples.countryinfo",
+								"CountryInfoService.wso"
+							]
+						},
+						"description": "Returns a list of countries ordered by name."
+					},
+					"response": []
+				},
+				{
+					"name": "Capital City for a Country",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// parse XML into JSON\r",
+									"var jsonObject = xml2Json(responseBody);\r",
+									"var country = pm.environment.get(\"iso_code115\");\r",
+									"\r",
+									"pm.test(\"Expected capital for country \" + country, function () {\r",
+									"    pm.expect(jsonObject).to.be.an(\"object\");\r",
+									"\r",
+									"    resultNode = jsonObject['soap:Envelope']['soap:Body']['m:CapitalCityResponse']['m:CapitalCityResult'];\r",
+									"\r",
+									"    pm.expect(resultNode).to.eql(\"Bishkek\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "text/xml; charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <CapitalCity xmlns=\"http://www.oorsprong.org/websamples.countryinfo\">\n      <sCountryISOCode>{{iso_code115}}</sCountryISOCode>\n    </CapitalCity>\n  </soap:Body>\n</soap:Envelope>"
+						},
+						"url": {
+							"raw": "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso",
+							"protocol": "http",
+							"host": [
+								"webservices",
+								"oorsprong",
+								"org"
+							],
+							"path": [
+								"websamples.countryinfo",
+								"CountryInfoService.wso"
+							]
+						},
+						"description": "Returns the name of the captial city for the passed country code."
+					},
+					"response": []
+				},
+				{
+					"name": "Currency for a Country",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// parse XML into JSON\r",
+									"var jsonObject = xml2Json(responseBody);\r",
+									"var country = pm.environment.get(\"iso_code153\");\r",
+									"\r",
+									"pm.test(\"Expected currency for country \" + country, function () {\r",
+									"    pm.expect(jsonObject).to.be.an(\"object\");\r",
+									"\r",
+									"    resultNode = jsonObject['soap:Envelope']['soap:Body']['m:CountryCurrencyResponse']['m:CountryCurrencyResult'];\r",
+									"\r",
+									"    pm.expect(resultNode['m:sISOCode']).to.eql(\"XPF\");\r",
+									"    pm.expect(resultNode['m:sName']).to.eql(\"Comptoirs Franþais du Pacifique Francs\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "text/xml; charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <CountryCurrency xmlns=\"http://www.oorsprong.org/websamples.countryinfo\">\n      <sCountryISOCode>{{iso_code153}}</sCountryISOCode>\n    </CountryCurrency>\n  </soap:Body>\n</soap:Envelope>"
+						},
+						"url": {
+							"raw": "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso",
+							"protocol": "http",
+							"host": [
+								"webservices",
+								"oorsprong",
+								"org"
+							],
+							"path": [
+								"websamples.countryinfo",
+								"CountryInfoService.wso"
+							]
+						},
+						"description": "Returns the currency ISO code and name for the passed country ISO code."
+					},
+					"response": []
+				}
+			],
+			"description": "Country SOAP APIs.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Currencies",
+			"item": [
+				{
+					"name": "List of Currencies by Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// parse XML into JSON\r",
+									"var jsonObject = xml2Json(responseBody);\r",
+									"resultNode = jsonObject['soap:Envelope']['soap:Body']['m:ListOfCurrenciesByNameResponse']['m:ListOfCurrenciesByNameResult']['m:tCurrency'];\r",
+									"\r",
+									"pm.test(\"Response has 175 currencies in nodes\", function () {\r",
+									"    pm.expect(jsonObject).to.be.an(\"object\");\r",
+									"\r",
+									"    pm.expect(resultNode.length).to.eql(175);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "text/xml; charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n  <soap12:Body>\n    <ListOfCurrenciesByName xmlns=\"http://www.oorsprong.org/websamples.countryinfo\">\n    </ListOfCurrenciesByName>\n  </soap12:Body>\n</soap12:Envelope>"
+						},
+						"url": {
+							"raw": "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso",
+							"protocol": "http",
+							"host": [
+								"webservices",
+								"oorsprong",
+								"org"
+							],
+							"path": [
+								"websamples.countryinfo",
+								"CountryInfoService.wso"
+							]
+						},
+						"description": "Returns a list of currencies ordered by name."
+					},
+					"response": []
+				}
+			],
+			"description": "Returns a list of currencies ordered by name.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Temperature",
+			"item": [
+				{
+					"name": "Celsius to Fahrenheit Conversion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// parse XML into JSON\r",
+									"var jsonObject = xml2Json(responseBody);\r",
+									"\r",
+									"pm.test(\"Transformation has expected result\", function () {\r",
+									"    pm.expect(jsonObject).to.be.an(\"object\");\r",
+									"\r",
+									"    resultNode = jsonObject['soap:Envelope']['soap:Body']['CelsiusToFahrenheitResponse']['CelsiusToFahrenheitResult'];\r",
+									"\r",
+									"    pm.expect(resultNode).to.eql(\"68\")\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/soap+xml; charset=utf-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n  <soap12:Body>\n    <CelsiusToFahrenheit xmlns=\"https://www.w3schools.com/xml/\">\n      <Celsius>20</Celsius>\n    </CelsiusToFahrenheit>\n  </soap12:Body>\n</soap12:Envelope>"
+						},
+						"url": {
+							"raw": "https://www.w3schools.com/xml/tempconvert.asmx",
+							"protocol": "https",
+							"host": [
+								"www",
+								"w3schools",
+								"com"
+							],
+							"path": [
+								"xml",
+								"tempconvert.asmx"
+							]
+						},
+						"description": "Converts celsius temperature to farenheit."
+					},
+					"response": []
+				},
+				{
+					"name": "Fahrenheit to Celsius Conversion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// parse XML into JSON\r",
+									"var jsonObject = xml2Json(responseBody);\r",
+									"\r",
+									"pm.test(\"Transformation has expected result\", function () {\r",
+									"    pm.expect(jsonObject).to.be.an(\"object\");\r",
+									"\r",
+									"    resultNode = jsonObject['soap:Envelope']['soap:Body']['FahrenheitToCelsiusResponse']['FahrenheitToCelsiusResult'];\r",
+									"\r",
+									"    pm.expect(resultNode).to.eql(\"23.8888888888889\")\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/soap+xml; charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n  <soap12:Body>\n    <FahrenheitToCelsius xmlns=\"https://www.w3schools.com/xml/\">\n      <Fahrenheit>75</Fahrenheit>\n    </FahrenheitToCelsius>\n  </soap12:Body>\n</soap12:Envelope>"
+						},
+						"url": {
+							"raw": "https://www.w3schools.com/xml/tempconvert.asmx",
+							"protocol": "https",
+							"host": [
+								"www",
+								"w3schools",
+								"com"
+							],
+							"path": [
+								"xml",
+								"tempconvert.asmx"
+							]
+						},
+						"description": "Converts farenheit temperature to celsius."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

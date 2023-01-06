@@ -23,6 +23,12 @@ Decided to use [environment variables](https://learning.postman.com/docs/sending
 ## REST
 - [BookCart API](https://bookcart.azurewebsites.net/swagger/index.html)
 
+## SOAP
+- [Numbers](https://www.dataaccess.com/webservicesserver/NumberConversion.wso)
+- [Calculator](http://www.dneonline.com/calculator.asmx)
+- [Country Info](http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso)
+- [Temperature](https://www.w3schools.com/xml/tempconvert.asmx)
+
 # Tools
 
 ## Postman
