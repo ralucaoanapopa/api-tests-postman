@@ -427,7 +427,6 @@
 					"response": []
 				}
 			],
-			"description": "Some weather APIs for the United States.",
 			"event": [
 				{
 					"listen": "prerequest",
