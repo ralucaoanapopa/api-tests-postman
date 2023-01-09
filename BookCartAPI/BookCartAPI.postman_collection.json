@@ -93,7 +93,7 @@
 									"});\r",
 									"\r",
 									"pm.test(\"Response has expected values\", function () {\r",
-									"    pm.expect(jsonData[\"bookId\"]).to.eql(32);\r",
+									"    pm.expect(jsonData[\"bookId\"]).to.eql(pm.environment.get(\"book_id\"));\r",
 									"    pm.expect(jsonData[\"title\"]).to.eql(\"Wicked and the Wallflower\");\r",
 									"    pm.expect(jsonData[\"author\"]).to.eql(\"Sarah MacLean\");\r",
 									"    pm.expect(jsonData[\"category\"]).to.eql(\"Fiction\");\r",
@@ -376,6 +376,321 @@
 							"path": [
 								"User",
 								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wishlist",
+			"item": [
+				{
+					"name": "List items from a user's wishlist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"There are no items in wishlist for specified user\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData.length).to.equal(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_cart_base}}/Wishlist/{{user_id}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"Wishlist",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle items to wishlist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Book added in wishlist for specified user\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData.length).to.equal(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has book's details\", function () {\r",
+									"    pm.expect(jsonData[0][\"bookId\"]).to.eql(pm.environment.get(\"book_id\"));\r",
+									"    pm.expect(jsonData[0][\"title\"]).to.eql(\"Wicked and the Wallflower\");\r",
+									"    pm.expect(jsonData[0][\"author\"]).to.eql(\"Sarah MacLean\");\r",
+									"    pm.expect(jsonData[0][\"category\"]).to.eql(\"Fiction\");\r",
+									"    pm.expect(jsonData[0][\"price\"]).to.eql(512.00);\r",
+									"    pm.expect(jsonData[0][\"coverFileName\"]).to.eql(\"75f8ca57-6b59-43aa-ae05-f51a7429dd5836301036.jpg\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyYWx1dGVzdCIsInVzZXJpZCI6IjE5MjAiLCJ1c2VyVHlwZUlkIjoiMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJqdGkiOiJkMzJlN2Y0Ni0xMjM5LTQ5MWEtYmMzZS1iZGJmNzNhNjFhMmMiLCJleHAiOjE2NzMyODQ1ODEsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzY0LyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzY0LyJ9.UWPMXniEaQYAHxufPWW_c_DCAK9mpHxHJ-_GrWcjJXk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{book_cart_base}}/Wishlist/ToggleWishlist/{{user_id}}/{{book_id}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"Wishlist",
+								"ToggleWishlist",
+								"{{user_id}}",
+								"{{book_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List items from a user's wishlist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"There is one item in wishlist for specified user\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData.length).to.equal(1);\r",
+									"    pm.expect(jsonData[0][\"bookId\"]).to.eql(32);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_cart_base}}/Wishlist/{{user_id}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"Wishlist",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clear wishlist for specified user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"There are no items in wishlist for specified user\", function () {\r",
+									"    pm.expect(jsonData).to.equal(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{book_cart_base}}/Wishlist/{{user_id}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"Wishlist",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle items to wishlist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Book added in wishlist for specified user\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData.length).to.equal(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has book's details\", function () {\r",
+									"    pm.expect(jsonData[0][\"bookId\"]).to.eql(21);\r",
+									"    pm.expect(jsonData[0][\"title\"]).to.eql(\"Slayer\");\r",
+									"    pm.expect(jsonData[0][\"author\"]).to.eql(\" Kiersten White\");\r",
+									"    pm.expect(jsonData[0][\"category\"]).to.eql(\"Mystery\");\r",
+									"    pm.expect(jsonData[0][\"price\"]).to.eql(1234.00);\r",
+									"    pm.expect(jsonData[0][\"coverFileName\"]).to.eql(\"6d91b7b0-b8d1-41ad-a0ef-65e2324fc1b3Slayer.jpg\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyYWx1dGVzdCIsInVzZXJpZCI6IjE5MjAiLCJ1c2VyVHlwZUlkIjoiMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJqdGkiOiJkMzJlN2Y0Ni0xMjM5LTQ5MWEtYmMzZS1iZGJmNzNhNjFhMmMiLCJleHAiOjE2NzMyODQ1ODEsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzY0LyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzY0LyJ9.UWPMXniEaQYAHxufPWW_c_DCAK9mpHxHJ-_GrWcjJXk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{book_cart_base}}/Wishlist/ToggleWishlist/{{user_id}}/{{book_id_toggle}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"Wishlist",
+								"ToggleWishlist",
+								"{{user_id}}",
+								"{{book_id_toggle}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle items to wishlist: remove existent book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Toggle removed from list existent book id\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData.length).to.equal(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyYWx1dGVzdCIsInVzZXJpZCI6IjE5MjAiLCJ1c2VyVHlwZUlkIjoiMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJqdGkiOiJkMzJlN2Y0Ni0xMjM5LTQ5MWEtYmMzZS1iZGJmNzNhNjFhMmMiLCJleHAiOjE2NzMyODQ1ODEsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzY0LyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzY0LyJ9.UWPMXniEaQYAHxufPWW_c_DCAK9mpHxHJ-_GrWcjJXk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{book_cart_base}}/Wishlist/ToggleWishlist/{{user_id}}/{{book_id_toggle}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"Wishlist",
+								"ToggleWishlist",
+								"{{user_id}}",
+								"{{book_id_toggle}}"
 							]
 						}
 					},
