@@ -33,6 +33,7 @@ Decided to use [environment variables](https://learning.postman.com/docs/sending
 
 ## Postman
 
+![](https://github.com/ralucaoanapopa/api-tests-postman/blob/main/BookCart_run_collection.gif)
 
 ## [Newman](https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/)
 
