@@ -697,6 +697,372 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "ShoppingCart",
+			"item": [
+				{
+					"name": "List items from shopping cart for a specific user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"There are no items in shopping cart for specified user\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData.length).to.equal(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_cart_base}}/ShoppingCart/{{user_id}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"ShoppingCart",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add book in shopping cart for a specific user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"One book was added in shopping cart for specified user\", function () {\r",
+									"    pm.expect(jsonData).to.equal(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_cart_base}}/ShoppingCart/AddToCart/{{user_id}}/{{book_id}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"ShoppingCart",
+								"AddToCart",
+								"{{user_id}}",
+								"{{book_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove one book from shopping list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"One book was removed from shopping cart for specified user\", function () {\r",
+									"    pm.expect(jsonData).to.equal(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_cart_base}}/ShoppingCart/{{user_id}}/{{book_id}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"ShoppingCart",
+								"{{user_id}}",
+								"{{book_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add book in shopping cart for a specific user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"One book was added in shopping cart for specified user\", function () {\r",
+									"    pm.expect(jsonData).to.equal(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_cart_base}}/ShoppingCart/AddToCart/{{user_id}}/{{book_id}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"ShoppingCart",
+								"AddToCart",
+								"{{user_id}}",
+								"{{book_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add another book in shopping cart for same user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Two books were added in shopping cart for specified user\", function () {\r",
+									"    pm.expect(jsonData).to.equal(2);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_cart_base}}/ShoppingCart/AddToCart/{{user_id}}/{{book_id_toggle}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"ShoppingCart",
+								"AddToCart",
+								"{{user_id}}",
+								"{{book_id_toggle}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Increase quantity for one book in shopping cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Three books are in shopping cart for specified user\", function () {\r",
+									"    pm.expect(jsonData).to.equal(3);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_cart_base}}/ShoppingCart/AddToCart/{{user_id}}/{{book_id}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"ShoppingCart",
+								"AddToCart",
+								"{{user_id}}",
+								"{{book_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reduce quantity with 1 for one book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Two books are in shopping cart for specified user\", function () {\r",
+									"    pm.expect(jsonData).to.equal(2);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_cart_base}}/ShoppingCart/{{user_id}}/{{book_id}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"ShoppingCart",
+								"{{user_id}}",
+								"{{book_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clear shopping cart for specific user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"There are no items in shopping cart for specified user\", function () {\r",
+									"    pm.expect(jsonData).to.equal(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{book_cart_base}}/ShoppingCart/{{user_id}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"ShoppingCart",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
