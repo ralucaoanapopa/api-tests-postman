@@ -1,67 +1,387 @@
 {
 	"info": {
 		"_postman_id": "f5c4c613-ac56-4807-b28c-e1d72e174405",
-		"name": "BookCart API",
+		"name": "BookCartAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "13540982"
 	},
 	"item": [
 		{
-			"name": "List all books",
-			"event": [
+			"name": "Book",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"var jsonData = pm.response.json();\r",
-							"\r",
-							"pm.test(\"List of books contains results\", function () {\r",
-							"    pm.expect(jsonData).to.be.an(\"array\");\r",
-							"    pm.expect(jsonData).to.not.be.empty;\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response contains objects with expected schema\", function () {\r",
-							"    jsonData.forEach(function(item, index) {\r",
-							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"bookId\");\r",
-							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"title\");\r",
-							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"author\");\r",
-							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"category\");\r",
-							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"price\");\r",
-							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"coverFileName\");\r",
-							"    })\r",
-							"});\r",
-							"\r",
-							"pm.test(\"First object from response has expected values\", function () {\r",
-							"    pm.expect(jsonData[0][\"bookId\"]).to.eql(2);\r",
-							"    pm.expect(jsonData[0][\"title\"]).to.eql(\"HP2\");\r",
-							"    pm.expect(jsonData[0][\"author\"]).to.eql(\"JKR\");\r",
-							"    pm.expect(jsonData[0][\"category\"]).to.eql(\"Mystery\");\r",
-							"    pm.expect(jsonData[0][\"price\"]).to.eql(235.00);\r",
-							"    pm.expect(jsonData[0][\"coverFileName\"]).to.eql(\"9d8f4978-0ef8-42d0-873a-4eb583439237HP2.jpg\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{book_cart_base}}/Book",
-					"host": [
-						"{{book_cart_base}}"
+					"name": "List all books",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"List of books contains results\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData).to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains objects with expected schema\", function () {\r",
+									"    jsonData.forEach(function(item, index) {\r",
+									"        pm.expect(jsonData[index]).to.haveOwnProperty(\"bookId\");\r",
+									"        pm.expect(jsonData[index]).to.haveOwnProperty(\"title\");\r",
+									"        pm.expect(jsonData[index]).to.haveOwnProperty(\"author\");\r",
+									"        pm.expect(jsonData[index]).to.haveOwnProperty(\"category\");\r",
+									"        pm.expect(jsonData[index]).to.haveOwnProperty(\"price\");\r",
+									"        pm.expect(jsonData[index]).to.haveOwnProperty(\"coverFileName\");\r",
+									"    })\r",
+									"});\r",
+									"\r",
+									"pm.test(\"First object from response has expected values\", function () {\r",
+									"    pm.expect(jsonData[0][\"bookId\"]).to.eql(2);\r",
+									"    pm.expect(jsonData[0][\"title\"]).to.eql(\"HP2\");\r",
+									"    pm.expect(jsonData[0][\"author\"]).to.eql(\"JKR\");\r",
+									"    pm.expect(jsonData[0][\"category\"]).to.eql(\"Mystery\");\r",
+									"    pm.expect(jsonData[0][\"price\"]).to.eql(235.00);\r",
+									"    pm.expect(jsonData[0][\"coverFileName\"]).to.eql(\"9d8f4978-0ef8-42d0-873a-4eb583439237HP2.jpg\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Set book id as environment variable\", function() {\r",
+									"    pm.environment.set(\"book_id\", jsonData[13][\"bookId\"]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"path": [
-						"Book"
-					]
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_cart_base}}/Book",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"Book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read one book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response contains one object with expected schema\", function () {\r",
+									"        pm.expect(jsonData).to.haveOwnProperty(\"bookId\");\r",
+									"        pm.expect(jsonData).to.haveOwnProperty(\"title\");\r",
+									"        pm.expect(jsonData).to.haveOwnProperty(\"author\");\r",
+									"        pm.expect(jsonData).to.haveOwnProperty(\"category\");\r",
+									"        pm.expect(jsonData).to.haveOwnProperty(\"price\");\r",
+									"        pm.expect(jsonData).to.haveOwnProperty(\"coverFileName\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has expected values\", function () {\r",
+									"    pm.expect(jsonData[\"bookId\"]).to.eql(32);\r",
+									"    pm.expect(jsonData[\"title\"]).to.eql(\"Wicked and the Wallflower\");\r",
+									"    pm.expect(jsonData[\"author\"]).to.eql(\"Sarah MacLean\");\r",
+									"    pm.expect(jsonData[\"category\"]).to.eql(\"Fiction\");\r",
+									"    pm.expect(jsonData[\"price\"]).to.eql(512.00);\r",
+									"    pm.expect(jsonData[\"coverFileName\"]).to.eql(\"75f8ca57-6b59-43aa-ae05-f51a7429dd5836301036.jpg\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_cart_base}}/Book/{{book_id}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"Book",
+								"{{book_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"List of books contains results\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData).to.not.be.empty;\r",
+									"    pm.expect(jsonData.length).to.eql(5);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains objects with expected schema\", function () {\r",
+									"    jsonData.forEach(function(item, index) {\r",
+									"        pm.expect(jsonData[index]).to.haveOwnProperty(\"categoryId\");\r",
+									"        pm.expect(jsonData[index]).to.haveOwnProperty(\"categoryName\");\r",
+									"    })\r",
+									"});\r",
+									"\r",
+									"pm.test(\"First object from response has expected values\", function () {\r",
+									"    pm.expect(jsonData[0][\"categoryId\"]).to.eql(1);\r",
+									"    pm.expect(jsonData[0][\"categoryName\"]).to.eql(\"Biography\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_cart_base}}/Book/GetCategoriesList",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"Book",
+								"GetCategoriesList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List similar books",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"List of similar books contains 5 results\", function () {\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData).to.not.be.empty;\r",
+									"    pm.expect(jsonData.length).to.eql(5);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains objects with expected schema\", function () {\r",
+									"    jsonData.forEach(function(item, index) {\r",
+									"        pm.expect(jsonData[index]).to.haveOwnProperty(\"bookId\");\r",
+									"        pm.expect(jsonData[index]).to.haveOwnProperty(\"title\");\r",
+									"        pm.expect(jsonData[index]).to.haveOwnProperty(\"author\");\r",
+									"        pm.expect(jsonData[index]).to.haveOwnProperty(\"category\");\r",
+									"        pm.expect(jsonData[index]).to.haveOwnProperty(\"price\");\r",
+									"        pm.expect(jsonData[index]).to.haveOwnProperty(\"coverFileName\");\r",
+									"    })\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_cart_base}}/Book/GetSimilarBooks/{{book_id}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"Book",
+								"GetSimilarBooks",
+								"{{book_id}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Check username availability",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"var userName = pm.environment.get(\"user_name_not\");\r",
+									"pm.test(\"Username \" + userName + \"  does not exist\", function () {\r",
+									"    pm.expect(jsonData).to.equal(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_cart_base}}/User/validateUserName/{{user_name_not}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"User",
+								"validateUserName",
+								"{{user_name_not}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register a new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 0,\r\n    \"firstName\": \"Ralu\",\r\n    \"lastName\": \"Test API\",\r\n    \"username\": \"ralutest\",\r\n    \"password\": \"Letmetest2@23\",\r\n    \"gender\": \"F\",\r\n    \"userTypeId\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{book_cart_base}}/User",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check username availability",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"var userName = pm.environment.get(\"user_name\");\r",
+									"\r",
+									"pm.test(\"Username \" + userName + \" already exists\", function () {\r",
+									"    pm.expect(jsonData).to.equal(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_cart_base}}/User/validateUserName/{{user_name}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"User",
+								"validateUserName",
+								"{{user_name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read the count of items in shopping cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"There are no items in shopping cart for specified user\", function () {\r",
+									"    pm.expect(jsonData).to.equal(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{book_cart_base}}/User/{{user_id}}",
+							"host": [
+								"{{book_cart_base}}"
+							],
+							"path": [
+								"User",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
