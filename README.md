@@ -22,6 +22,7 @@ Decided to use [environment variables](https://learning.postman.com/docs/sending
 
 ## REST
 - [BookCart API](https://bookcart.azurewebsites.net/swagger/index.html)
+- [Library API](https://glitch.com/edit/#!/postman-library-api?path=README.md)
 
 ## SOAP
 - [Numbers](https://www.dataaccess.com/webservicesserver/NumberConversion.wso)
