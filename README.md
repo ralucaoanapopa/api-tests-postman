@@ -34,6 +34,8 @@ Decided to use [environment variables](https://learning.postman.com/docs/sending
 
 ## Postman
 
+Run collection with tests for BookCart API using Postman UI:
+
 ![](https://github.com/ralucaoanapopa/api-tests-postman/blob/main/BookCart_run_collection.gif)
 
 ## [Newman](https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/)
@@ -43,6 +45,9 @@ Decided to use [environment variables](https://learning.postman.com/docs/sending
 ```
 newman run <collection_name.json> -e <environment_file.json>
 ```
+Run collection with tests for Library API using newman
+
+![](https://github.com/ralucaoanapopa/api-tests-postman/blob/main/LibraryAPI_run_newman.gif)
 
 # Readings
 
