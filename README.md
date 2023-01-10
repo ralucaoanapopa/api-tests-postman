@@ -17,6 +17,11 @@ Decided to use [environment variables](https://learning.postman.com/docs/sending
 - global variables have lower precedence and can be overridden by environment variables
 - seems more natural to use `--environment` option when [running collection using newman](https://github.com/postmanlabs/newman/#newman-run-collection-file-source-options)
 
+5. Install [newman-reporter-htmlextra](https://www.npmjs.com/package/newman-reporter-htmlextra) from cmd:
+
+```
+npm install -g newman-reporter-htmlextra
+```
 
 # APIs used
 
@@ -45,6 +50,13 @@ Run collection with tests for BookCart API using Postman UI:
 ```
 newman run <collection_name.json> -e <environment_file.json>
 ```
+
+### Run tests from a collection and generate html report
+
+```
+newman run <collection_name.json> -e <environment_file.json> -r htmlextra
+```
+
 Run collection with tests for Library API using newman
 
 ![](https://github.com/ralucaoanapopa/api-tests-postman/blob/main/LibraryAPI_run_newman.gif)
