@@ -1359,6 +1359,1041 @@
 					"body": "{\n    \"message\": \"OK\"\n}"
 				}
 			]
+		},
+		{
+			"name": "Add book: case without required parameter title",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected error validation message\", function(){\r",
+							"    jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[\"status\"]).to.eql(\"error\");\r",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"request.body should have required property 'title'\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"author\": \"{{add_author}}\",\n    \"genre\": \"{{add_genre}}\",\n    \"yearPublished\": {{add_year_published}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/books",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books"
+					]
+				},
+				"description": "Adds a book to the Library. Books added by users are deleted from the library 12 hours after they have been created."
+			},
+			"response": [
+				{
+					"name": "add book",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"One Hundred Years of Solitude\",\n    \"author\": \"Gabriel García Márquez\",\n    \"genre\": \"fiction\",\n    \"yearPublished\": 1967\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 12 Jun 2021 00:44:00 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "16"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"10-MxB4y4MLcx6QDsp8b8vgp7iFMFo\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"OK\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Add book: case yearPublished is not integer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected error validation message\", function(){\r",
+							"    jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[\"status\"]).to.eql(\"error\");\r",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"request.body.yearPublished should be integer\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"{{add_title}}\",\n    \"author\": \"{{add_author}}\",\n    \"genre\": \"{{add_genre}}\",\n    \"yearPublished\": \"1992\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/books",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books"
+					]
+				},
+				"description": "Adds a book to the Library. Books added by users are deleted from the library 12 hours after they have been created."
+			},
+			"response": [
+				{
+					"name": "add book",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"One Hundred Years of Solitude\",\n    \"author\": \"Gabriel García Márquez\",\n    \"genre\": \"fiction\",\n    \"yearPublished\": 1967\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 12 Jun 2021 00:44:00 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "16"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"10-MxB4y4MLcx6QDsp8b8vgp7iFMFo\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"OK\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Read one book by unexistent id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected error validation message\", function(){\r",
+							"    jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[\"status\"]).to.eql(\"error\");\r",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"Book with id: '\" + pm.environment.get(\"book_id_dispossessed\") +\"' not found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books/{{book_id_dispossessed}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						"{{book_id_dispossessed}}"
+					]
+				},
+				"description": "Gets a single book by id"
+			},
+			"response": [
+				{
+					"name": "book",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/books/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 12 Jun 2021 00:43:31 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "164"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"a4-YbCf8Nx5lqz4LotV0M4P+08vk5Y\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"title\": \"Ficciones\",\n    \"author\": \"Jorge Luis Borges\",\n    \"id\": \"ZUST9JFx-Sd9X0k\",\n    \"genre\": \"fiction\",\n    \"yearPublished\": 1944,\n    \"checkedOut\": true,\n    \"createdAt\": \"2021-06-02 17:37:38\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update checkedOut with invalid value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected error validation message\", function(){\r",
+							"    jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[\"status\"]).to.eql(\"error\");\r",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"request.body.checkedOut should be boolean\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"checkedOut\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/books/{{book_id_checked_out}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						"{{book_id_checked_out}}"
+					]
+				},
+				"description": "### Update a book by id\n\nUpdate any of these fields for a book with given `id` via the JSON body: \n\n- `title` (string)\n- `author` (string)\n- `genre` (string)\n- `yearPublished` (integer)\n- `checkedOut` (boolean)\n\n> Note: **Only user-added books can be edited**. Some books are part of the library's canonical collection and cannot be edited."
+			},
+			"response": [
+				{
+					"name": "update book",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"checkedOut\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/books/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 12 Jun 2021 00:44:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "16"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"10-MxB4y4MLcx6QDsp8b8vgp7iFMFo\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"OK\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Add book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    jsonData = pm.response.json()\r",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"OK\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"{{add_title}}\",\n    \"author\": \"{{add_author}}\",\n    \"genre\": \"{{add_genre}}\",\n    \"yearPublished\": {{add_year_published}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/books",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books"
+					]
+				},
+				"description": "Adds a book to the Library. Books added by users are deleted from the library 12 hours after they have been created."
+			},
+			"response": [
+				{
+					"name": "add book",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"One Hundred Years of Solitude\",\n    \"author\": \"Gabriel García Márquez\",\n    \"genre\": \"fiction\",\n    \"yearPublished\": 1967\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 12 Jun 2021 00:44:00 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "16"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"10-MxB4y4MLcx6QDsp8b8vgp7iFMFo\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"OK\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Filter books by search matching title",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"List of books contains results\", function () {\r",
+							"    pm.expect(jsonData).to.be.an(\"array\");\r",
+							"    pm.expect(jsonData).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains objects with expected schema\", function () {\r",
+							"    jsonData.forEach(function(item, index) {\r",
+							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"title\");\r",
+							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"author\");\r",
+							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"id\");\r",
+							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"genre\");\r",
+							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"yearPublished\");\r",
+							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"checkedOut\");\r",
+							"        pm.expect(jsonData[index]).to.haveOwnProperty(\"createdAt\");\r",
+							"    })\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains book with title value matching search string\", function () {\r",
+							"    pm.expect(jsonData[0][\"title\"]).to.eql(pm.environment.get(\"add_title\"));\r",
+							"    pm.expect(jsonData[0][\"author\"]).to.eql(pm.environment.get(\"add_author\"));\r",
+							"    pm.expect(jsonData[0][\"genre\"]).to.eql(pm.environment.get(\"add_genre\"));\r",
+							"    pm.expect(jsonData[0][\"yearPublished\"]).to.eql(parseInt(pm.environment.get(\"add_year_published\")));\r",
+							"    pm.expect(jsonData[0][\"checkedOut\"]).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Set book id as environment variable\", function() {\r",
+							"    pm.environment.set(\"book_id_dispossessed\", jsonData[0][\"id\"]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books?search=The Dispossessed",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "The Dispossessed",
+							"description": "a search string to be matched against author/title; Case insensitive, partial match OK."
+						},
+						{
+							"key": "genre",
+							"value": "fiction",
+							"description": "filter by genre (case-insensitive, exact match)",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Returns all books matching search criteria\n\nOptional filters can be passed as query parameters."
+			},
+			"response": [
+				{
+					"name": "books",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "borges",
+									"description": "a search string to be matched against author/title (example: borges). Case insensitive, partial match OK.",
+									"disabled": true
+								},
+								{
+									"key": "checkedOut",
+									"value": "false",
+									"description": "true/false",
+									"disabled": true
+								},
+								{
+									"key": "genre",
+									"value": "fiction",
+									"description": "filter by genre (case-insensitive, exact match)",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 12 Jun 2021 00:41:42 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "4503"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"1197-eLah3rmGpEn/V/gcfnJ7iyv+Foo\""
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"title\": \"Ficciones\",\n        \"author\": \"Jorge Luis Borges\",\n        \"id\": \"ZUST9JFx-Sd9X0k\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1944,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Dust Tracks on a Road\",\n        \"author\": \"Zora Neale Hurston\",\n        \"id\": \"bJmPVX5oFzAQJwI\",\n        \"genre\": \"biography\",\n        \"yearPublished\": 1942,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Crime and Punishment\",\n        \"author\": \"Fyodor Dostoyevsky\",\n        \"id\": \"T1NwXSmVxnlxoeG\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1866,\n        \"checkedOut\": true,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Domain-Driven Design: Tackling Complexity in the Heart of Software\",\n        \"author\": \"Eric Evans\",\n        \"id\": \"hHNwXjmjxnlxooP\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2003,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"The Tale of Genji\",\n        \"author\": \"Murasaki Shikibu\",\n        \"id\": \"rclHV3DLWbJmquK\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1021,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Patterns of Enterprise Application Architecture\",\n        \"author\": \"Martin Fowler\",\n        \"id\": \"uTYYlzvCQsaaSwj\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2002,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Competing Against Luck: The Story of Innovation and Customer Choice\",\n        \"author\": \"Clayton Christensen, Taddy Hall, Karen Dillon, David Duncan\",\n        \"id\": \"rebHV3JhWbJmcca\",\n        \"genre\": \"business\",\n        \"yearPublished\": 2016,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Beyond Violence\",\n        \"author\": \"Jiddu Krishnamurti\",\n        \"id\": \"pclHVVVqLWbJmqur\",\n        \"genre\": \"philosophy\",\n        \"yearPublished\": 1973,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems\",\n        \"author\": \"Martin Kleppmann\",\n        \"id\": \"HbQrRkNjJkalsS\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Colorless Tsukuru Tazaki and His Years of Pilgrimage\",\n        \"author\": \"Haruki Murakami\",\n        \"id\": \"eclHBBrLWbJmque\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2013,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"A Practical Approach to API Design\",\n        \"author\": \"D. Keith Casey Jr, James Higginbotham\",\n        \"id\": \"jclqjdUdBrLWDDmqp\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2013,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Go Design Patterns\",\n        \"author\": \"Mario Castro Contreras\",\n        \"id\": \"eeRplqnKkshdmqeeE\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2017,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"The Joy Luck Club\",\n        \"author\": \"Amy Tan\",\n        \"id\": \"qqlHBBrLWbJmq_a\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1989,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Anxious People\",\n        \"author\": \"Fredrik Backman\",\n        \"id\": \"MpNoarLWbJTwe\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2019,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Continuous API Management: Making the Right Decisions in an Evolving Landscape\",\n        \"author\": \"Mehdi Medjaoui, Erik Wilde, Ronnie Mitra, Mike Amundsen\",\n        \"id\": \"ZxJksSDasdaO\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2018,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Learning GraphQL\",\n        \"author\": \"Eve Porcello, Alex Banks\",\n        \"id\": \"gqlHBBrLWbJmqgql\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2018,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Masala Lab: The Science of Indian Cooking\",\n        \"author\": \"Krish Ashok\",\n        \"id\": \"shrHcTrLWlJmquti\",\n        \"genre\": \"cooking\",\n        \"yearPublished\": 2020,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Refactoring\",\n        \"author\": \"Kent Beck, Martin Fowler\",\n        \"id\": \"aeSdkfhUSkdhHfo\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 1999,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Consolation of Philosophy\",\n        \"author\": \"Boethius\",\n        \"id\": \"cpopeLmqgixdD\",\n        \"genre\": \"philosophy\",\n        \"yearPublished\": 524,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"A Thousand Splendid Suns\",\n        \"author\": \"Khaled Hosseini\",\n        \"id\": \"qpBhlLWbJmqgg\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2007,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"The Wright Brothers\",\n        \"author\": \"David McCullough \",\n        \"id\": \"HjKaEeYYuiapA\",\n        \"genre\": \"history\",\n        \"yearPublished\": 2007,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"RESTful Web APIs: Services for a Changing World\",\n        \"author\": \"Leonard Richardson, Mike Amundsen, Sam Ruby\",\n        \"id\": \"apilLWbJmqgop\",\n        \"genre\": \"computers\",\n        \"yearPublished\": 2013,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    },\n    {\n        \"title\": \"Creativity, Inc.\",\n        \"author\": \"Ed Catmull\",\n        \"id\": \"plRHqwwEJmqgoT\",\n        \"genre\": \"business\",\n        \"yearPublished\": 2014,\n        \"checkedOut\": false,\n        \"createdAt\": \"2021-06-02 17:37:38\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Update createdAt",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected error validation message\", function(){\r",
+							"    jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[\"status\"]).to.eql(\"error\");\r",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"request.body.createdAt can not be updated\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"createdAt\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/books/{{book_id_dispossessed}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						"{{book_id_dispossessed}}"
+					]
+				},
+				"description": "### Update a book by id\n\nUpdate any of these fields for a book with given `id` via the JSON body: \n\n- `title` (string)\n- `author` (string)\n- `genre` (string)\n- `yearPublished` (integer)\n- `checkedOut` (boolean)\n\n> Note: **Only user-added books can be edited**. Some books are part of the library's canonical collection and cannot be edited."
+			},
+			"response": [
+				{
+					"name": "update book",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"checkedOut\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/books/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 12 Jun 2021 00:44:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "16"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"10-MxB4y4MLcx6QDsp8b8vgp7iFMFo\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"OK\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Remove book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    jsonData = pm.response.json()\r",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"OK\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books/{{book_id_dispossessed}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						"{{book_id_dispossessed}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "delete book",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/books/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 12 Jun 2021 00:45:04 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "16"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"10-MxB4y4MLcx6QDsp8b8vgp7iFMFo\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"OK\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Remove book by unexistent id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected error validation message\", function(){\r",
+							"    jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[\"status\"]).to.eql(\"error\");\r",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"Book with id: '\" + pm.environment.get(\"book_id_dispossessed\") +\"' not found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books/{{book_id_dispossessed}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						"{{book_id_dispossessed}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "delete book",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/books/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 12 Jun 2021 00:45:04 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "16"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"10-MxB4y4MLcx6QDsp8b8vgp7iFMFo\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"OK\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Remove book without permission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expected error validation message\", function(){\r",
+							"    jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[\"status\"]).to.eql(\"error\");\r",
+							"    pm.expect(jsonData[\"message\"]).to.eql(\"You can't delete this book! It is part of the canonical library collection. You can delete books that you have added.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books/{{book_id_fiction}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						"{{book_id_fiction}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "delete book",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/books/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 12 Jun 2021 00:45:04 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "16"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"10-MxB4y4MLcx6QDsp8b8vgp7iFMFo\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"OK\"\n}"
+				}
+			]
 		}
 	],
 	"event": [
